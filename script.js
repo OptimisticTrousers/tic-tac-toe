@@ -8,27 +8,29 @@ const displayController = function() {
 
     const {boardList} = gameBoard;
 
+    const points = document.querySelectorAll('div.box');
+
     const render = function(){
 
-        const points = document.querySelectorAll('div.box');
-
         points.forEach((point,index) => point.addEventListener('click', (event) => {
-
             
             event.target.innerText = boardList[index];
-            console.log(event);
-
         }))
+
 
     }
 
-    return {render: render};
+    return {render};
 
 }();
 
 const playerFactory = (name) => {
 
     const {boardList} = gameBoard;
+
+    const buttonX = document.querySelector('aside > button:nth-child(1)');
+
+    const buttonO = document.querySelector('aside > button:nth-child(2)');
 
     const addMarks = () => console.log('do stuff');
 
