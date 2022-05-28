@@ -13,12 +13,21 @@ main{
     align-items: center;
 }
 
+h1.title{
+    text-align: center;
+}
+
 div.grid{
     
     display: grid;
     background-color: white;
     grid-template-columns: repeat(3, 157px);
     grid-template-rows: repeat(3, 157px);
+}
+
+footer{
+    text-align: center;
+    height: 3rem;
 }
 
 div.box{
