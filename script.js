@@ -1,33 +1,42 @@
 const gameBoard = function(){
-    let boardList = ['', '', '', '', '', '', '', ''];
+    let boardList = ['X', 'O', '', '', '', '', '', ''];
 
     return {boardList};
 }();
 
 const displayController = function() {
 
+    const {boardList} = gameBoard;
+
     const render = function(){
 
         const points = document.querySelectorAll('div.box');
 
-        points.forEach(point => point.addEventListener('click', pointClick))
+        points.forEach((point,index) => point.addEventListener('click', (event) => {
 
-        function pointClick(){
-            this.textContent = "Bob";
-        }
+            
+            event.target.innerText = boardList[index];
+            console.log(event);
+
+        }))
+
     }
+
+    return {render: render};
 
 }();
 
 const playerFactory = (name) => {
 
+    const {boardList} = gameBoard;
+
     const addMarks = () => console.log('do stuff');
 
-    return { name, move }
+    return { name }
 }
 
 const player = playerFactory('Bob');
 
 const computer = playerFactory('Computer');
 
-gameBoard.render();
+displayController.render();
