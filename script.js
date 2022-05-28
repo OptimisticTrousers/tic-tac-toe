@@ -22,27 +22,34 @@ const displayController = function() {
     return {render};
 }();
 
-const playerFactory = (name) => {
+const Player = (name) => {
 
-    const {boardList} = gameBoard;
+    const points = document.querySelectorAll('div.box');
+
+    const boardList = gameBoard;
+
+    return {name, points, boardList};
+}
+
+const Human = (name) => {
+
+    const {boardList} = Player(name).boardList;
+
+    const {points} = Player(name).points;
 
     const buttonX = document.querySelector('aside > button:nth-child(1)');
 
     const buttonO = document.querySelector('aside > button:nth-child(2)');
 
+    const setMark = function(mark){
+        mark = mark;
+    }
+
     let mark = "";
 
-    const points = document.querySelectorAll('div.box');
+    buttonX.addEventListener('click', setMark("X"))
 
-    buttonX.addEventListener('click', () => {
-
-        mark = "X";
-        console.log('bob jones')
-    })
-    buttonO.addEventListener('click', () => {
-
-        mark = "O";
-    })
+    buttonO.addEventListener('click', setMark("O"))
 
     const addMarks = function(){
 
@@ -50,16 +57,22 @@ const playerFactory = (name) => {
 
             mark = boardList[index];
         }))
-
     }
 
-    return { name, addMarks }
+    return {addMarks}
+
 }
 
-const player = playerFactory('Bob');
+const Computer = () => {
 
-player.addMarks();
+    const {boardList} = Player("Computer").boardList;
 
-const computer = playerFactory('Computer');
+    const {points} = Player("Computer").points;
+
+}
+
+const player = Human('Bob');
+
+const computer = Computer();
 
 displayController.render();
