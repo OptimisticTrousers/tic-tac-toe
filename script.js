@@ -33,16 +33,17 @@ const Player = (name) => {
 
 const Human = (name) => {
 
-    const {boardList} = Player(name).boardList;
+    const boardList = Player(name).boardList;
 
-    const {points} = Player(name).points;
+    const points = Player(name).points;
 
     const buttonX = document.querySelector('aside > button:nth-child(1)');
 
     const buttonO = document.querySelector('aside > button:nth-child(2)');
 
-    const setMark = function(mark){
-        mark = mark;
+    function setMark(value){
+        mark = value;
+        addMarks();
     }
 
     let mark = "";
@@ -51,7 +52,7 @@ const Human = (name) => {
 
     buttonO.addEventListener('click', setMark("O"))
 
-    const addMarks = function(){
+    function addMarks(){
 
         points.forEach((point, index) => point.addEventListener('click', () => {
 
@@ -60,7 +61,6 @@ const Human = (name) => {
     }
 
     return {addMarks}
-
 }
 
 const Computer = () => {
@@ -71,8 +71,10 @@ const Computer = () => {
 
 }
 
-const player = Human('Bob');
+const human = Human('Bob');
 
 const computer = Computer();
+
+human.addMarks();
 
 displayController.render();
