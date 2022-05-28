@@ -1,5 +1,5 @@
 const gameBoard = (function(){
-
+    let boardList = [];
 })();
 
 const displayController = (function() {
@@ -7,5 +7,7 @@ const displayController = (function() {
 })();
 
 const playerFactory = (name) => {
-    const move = () => {}
+    const move = () => {};
+
+    return { name, move}
 }
