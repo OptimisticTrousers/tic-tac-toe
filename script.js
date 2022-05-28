@@ -1,5 +1,6 @@
 const gameBoard = function(){
-    let boardList = ['X', 'O', '', '', '', '', '', ''];
+
+    let boardList = ['', '', '', '', '', '', '', ''];
 
     return {boardList};
 }();
@@ -16,12 +17,9 @@ const displayController = function() {
             
             event.target.innerText = boardList[index];
         }))
-
-
     }
 
     return {render};
-
 }();
 
 const playerFactory = (name) => {
@@ -32,12 +30,35 @@ const playerFactory = (name) => {
 
     const buttonO = document.querySelector('aside > button:nth-child(2)');
 
-    const addMarks = () => console.log('do stuff');
+    let mark = "";
 
-    return { name }
+    const points = document.querySelectorAll('div.box');
+
+    buttonX.addEventListener('click', () => {
+
+        mark = "X";
+        console.log('bob jones')
+    })
+    buttonO.addEventListener('click', () => {
+
+        mark = "O";
+    })
+
+    const addMarks = function(){
+
+        points.forEach((point, index) => point.addEventListener('click', () => {
+
+            mark = boardList[index];
+        }))
+
+    }
+
+    return { name, addMarks }
 }
 
 const player = playerFactory('Bob');
+
+player.addMarks();
 
 const computer = playerFactory('Computer');
 
