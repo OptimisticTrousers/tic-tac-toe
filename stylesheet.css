@@ -3,6 +3,8 @@ body{
     height: 100vh;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: aliceblue;
+
+    /*77B6EA */
 }
 
 main{
@@ -15,6 +17,33 @@ main{
 
 h1.title{
     text-align: center;
+}
+
+aside{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60%;
+    justify-content: space-evenly;
+}
+
+aside div.marks > button{
+
+    padding: 2.5rem 6rem;
+    font-size: 3rem;
+    border-radius: 25px;
+}
+
+aside div.marks button:nth-child(1){
+
+    background-color: #FFD166;
+    color: #FFFCF9;
+}
+
+aside div.marks button:nth-child(2){
+
+    background-color: #26547C;
+    color: #FFFCF9;
 }
 
 div.grid{
