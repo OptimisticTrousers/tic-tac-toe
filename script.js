@@ -1,6 +1,10 @@
 const gameBoard = function(){
-    let boardList = ['X', 'O', 'X', 'O', 'X', 'O', 'X', 'O'];
-    let gameOver = false;
+    let boardList = ['', '', '', '', '', '', '', ''];
+
+    return {boardList};
+}();
+
+const displayController = function() {
 
     const render = function(){
 
@@ -8,23 +12,22 @@ const gameBoard = function(){
 
         points.forEach(point => point.addEventListener('click', pointClick))
 
-        const pointClick = function(){
-            this.textContent = "bob";
+        function pointClick(){
+            this.textContent = "Bob";
         }
     }
 
 }();
 
-const displayController = function() {
-
-}();
-
 const playerFactory = (name) => {
-    const move = () => {};
 
-    return { name, move}
+    const addMarks = () => console.log('do stuff');
+
+    return { name, move }
 }
 
 const player = playerFactory('Bob');
 
 const computer = playerFactory('Computer');
+
+gameBoard.render();
