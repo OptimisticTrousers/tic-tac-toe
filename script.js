@@ -9,26 +9,24 @@ const gameBoard = function(){
         boardList[index] = mark;
     }
 
-    function getNodeList(){
+    function getList(){
         return points;
     }
 
-    function getBoardListElement(index){
+    const getElementAtIndex = function(index){
         return boardList[index];
     }
 
-    return {addElementToList, getNodeList, getBoardListElement};
+    return {addElementToList, getList, getElementAtIndex};
 }();
 
 const displayController = function() {
 
     const render = function(){
 
-        gameBoard.getNodeList().forEach((point,index) => point.addEventListener('click', (event) => {
+        gameBoard.getList().forEach((point,index) => point.addEventListener('click', (event) => {
 
-            console.log(gameBoard.getBoardListElement(index));
-
-            event.target.innerText = gameBoard.getBoardListElement(index);
+            event.target.innerText = gameBoard.getElementAtIndex(index);
         }))
     }
 
@@ -61,15 +59,14 @@ const Human = (name) => {
         mark = value;
     }
 
-    buttonX.addEventListener('click', setMark("X"))
-
     buttonO.addEventListener('click', setMark("O"))
+
+    buttonX.addEventListener('click', setMark("X"))
 
     function addMarks(){
 
-        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
+        gameBoard.getList().forEach((point, index) => point.addEventListener('click', () => {
 
-            console.log(mark);
             gameBoard.addElementToList(mark, index);
         }))
     }
