@@ -51,6 +51,10 @@ const Player = (name) => {
 
     let playerTurn = true;
 
+    let aiMark = "";
+
+    let humanMark = "";
+
     const setPlayerTurn = (turn) => {
         playerTurn = turn;
     }
@@ -58,8 +62,26 @@ const Player = (name) => {
         return playerTurn;
     }
 
-    return {name, setPlayerTurn, getPlayerTurn};
+    const getHumanMark = () => {
+
+        return humanMark;
+    }
+
+    const getAiMark = () => {
+
+        return aiMark;
+    }
+
+    const setMark = function(aiMark, humanMark) {
+
+        this.aiMark = aiMark;
+        this.humanMark = humanMark;
+    }
+
+
+    return {name, setPlayerTurn, getPlayerTurn, getAiMark, getHumanMark, setMark};
 }
+
 
 const Human = (name) => {
 
@@ -115,6 +137,17 @@ const Computer = (name) => {
 
     const boardList = gameBoard.getBoardList();
 
+    const minimax = (currBdSt, currMark) => {
+
+    }
+
+    return Object.assign({}, prototype, {minimax});
+}
+
+const game = function(){
+
+    let score = 0;
+
     const checkIfWinnerFound = (currBdSt, currMark) => {
 
     if (
@@ -135,18 +168,12 @@ const Computer = (name) => {
     }
 }
 
-    const minimax = (currBdSt, currMark) => {
-
-    }
-
-    return Object.assign({}, prototype, {minimax}, {checkIfWinnerFound});
-}
-
-const game = function(){
 
     const human = Human('Bob');
 
     const computer = Computer("Computer");
+
+    human.setMark("bob", "jones")
 
     const bestPlayInfo = computer.minimax(gameBoard.getBoardList(), computer.getPlayerTurn());
 
