@@ -1,6 +1,6 @@
 const gameBoard = function(){
 
-    let boardList = ['', '', '', '', '', '', '', '', ''];
+    let boardList = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     const points = document.querySelectorAll('div.box');
 
@@ -32,7 +32,10 @@ const displayController = function(){
 
         gameBoard.getNodeList().forEach((point,index) => point.addEventListener('click', (event) => {
 
-            event.target.innerText = gameBoard.getElementAtIndex(index);
+            if(Number.isInteger(gameBoard.getElementAtIndex(index)) != true){
+
+                event.target.innerText = gameBoard.getElementAtIndex(index);
+            }
         }))
     }
 
@@ -89,9 +92,10 @@ const Human = (name) => {
 
         gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
 
-            if(gameBoard.getElementAtIndex(index) == "" && prototype.getPlayerTurn() == true){
+            if(Number.isInteger(gameBoard.getElementAtIndex(index)) == true && prototype.getPlayerTurn() == true){
 
                 gameBoard.addElementToBoardList(mark, index);
+
                 prototype.setPlayerTurn(false)
             }
         }))
