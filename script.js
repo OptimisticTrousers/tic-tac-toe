@@ -60,9 +60,9 @@ const Human = (name) => {
         mark = value;
     }
 
-    buttonO.addEventListener('click', setMark("O"))
+    buttonX.addEventListener('click', () => setMark("X"));
 
-    buttonX.addEventListener('click', setMark("X"))
+    buttonO.addEventListener('click', () => setMark("O"));
 
     const addMarks = () =>{
 
