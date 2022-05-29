@@ -41,6 +41,16 @@ aside div.marks button:nth-child(1){
     color: #FFFCF9;
 }
 
+aside div.marks button:nth-child(1).inactive{
+
+    display: none;
+}
+
+aside div.marks button:nth-child(2).inactive{
+
+    display: none;
+}
+
 aside div.marks button:nth-child(1):hover{
 
     background-color: #FFE066;

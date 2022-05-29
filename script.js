@@ -69,9 +69,16 @@ const Human = (name) => {
         mark = value;
     }
 
-    buttonX.addEventListener('click', () => setMark("X"));
+    buttonX.addEventListener('click', function() {
 
-    buttonO.addEventListener('click', () => setMark("O"));
+        setMark("X");
+        buttonO.classList.add('inactive');
+    })
+    buttonO.addEventListener('click', function() {
+
+        setMark("O");
+        buttonX.classList.add('inactive');
+    })
 
     const addMarks = () =>{
 
@@ -96,10 +103,6 @@ const Computer = (name) => {
 }
 
 const human = Human('Bob');
-
-human.setPlayerTurn(true);
-
-console.log(human.getPlayerTurn());
 
 const computer = Computer("Computer");
 
