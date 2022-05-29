@@ -4,25 +4,26 @@ const gameBoard = function(){
 
     const points = document.querySelectorAll('div.box');
 
-    function addElementToList(mark, index){
+    const addElementToList = (mark, index) => {
 
         boardList[index] = mark;
     }
 
-    function getList(){
+    const getList = () => {
         return points;
     }
 
-    const getElementAtIndex = function(index){
+    const getElementAtIndex = index => {
         return boardList[index];
     }
 
     return {addElementToList, getList, getElementAtIndex};
 }();
 
-const displayController = function() {
 
-    const render = function(){
+const displayController = function(){
+
+    const render = () => {
 
         gameBoard.getList().forEach((point,index) => point.addEventListener('click', (event) => {
 
@@ -55,7 +56,7 @@ const Human = (name) => {
         location.reload();
     })
 
-    function setMark(value){
+    const setMark = value =>{
         mark = value;
     }
 
@@ -63,7 +64,7 @@ const Human = (name) => {
 
     buttonX.addEventListener('click', setMark("X"))
 
-    function addMarks(){
+    const addMarks = () =>{
 
         gameBoard.getList().forEach((point, index) => point.addEventListener('click', () => {
 
