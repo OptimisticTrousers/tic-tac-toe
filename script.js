@@ -91,13 +91,9 @@ const Human = (name) => {
 
 const Computer = (name) => {
 
-    const computerName = Player(name);
+    const prototype = Player(name);
 
-    const setPlayerTurn = Player(name).setPlayerTurn;
-
-    const getPlayerTurn = Player(name).getPlayerTurn;
-
-    return {computerName, setPlayerTurn, getPlayerTurn}
+    return Object.assign({}, prototype);
 }
 
 const human = Human('Bob');
