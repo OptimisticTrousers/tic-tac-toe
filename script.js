@@ -37,9 +37,16 @@ const Human = (name) => {
 
     const points = Player(name).points;
 
-    const buttonX = document.querySelector('aside > button:nth-child(1)');
+    const buttonX = document.querySelector('aside .marks button:nth-child(1)');
 
-    const buttonO = document.querySelector('aside > button:nth-child(2)');
+    const buttonO = document.querySelector('aside .marks button:nth-child(2)');
+
+    const restartButton = document.querySelector('aside > button')
+
+    restartButton.addEventListener('click', () => {
+
+        location.reload();
+    })
 
     function setMark(value){
         mark = value;
