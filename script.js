@@ -50,6 +50,8 @@ const Player = (name) => {
 
 const Human = (name) => {
 
+    let playerTurn = false;
+
     const humanName = Player(name).name;
 
     const setPlayerTurn = Player(name).setPlayerTurn;
@@ -84,6 +86,8 @@ const Human = (name) => {
             if(gameBoard.getElementAtIndex(index) == ""){
 
                 gameBoard.addElementToBoardList(mark, index);
+
+                Player.setPlayerTurn(true);
             }
         }))
     }
@@ -104,8 +108,12 @@ const Computer = (name) => {
 
 const human = Human('Bob');
 
+const player = Player('Bob');
+
 const computer = Computer("Computer");
 
 human.addMarks();
+
+console.log(human.getPlayerTurn());
 
 displayController.render();
