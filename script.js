@@ -1,6 +1,6 @@
 const gameBoard = function(){
 
-    let boardList = ['', '', '', '', '', '', '', ''];
+    let boardList = ['', '', '', '', '', '', '', '', ''];
 
     const points = document.querySelectorAll('div.box');
 
