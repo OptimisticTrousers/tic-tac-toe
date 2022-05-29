@@ -36,12 +36,25 @@ const displayController = function(){
 
 const Player = (name) => {
 
-    return {name};
+    let playerTurn = false;
+
+    const setPlayerTurn = (turn) => {
+        playerTurn = turn;
+    }
+    const getPlayerTurn = () =>{
+        return playerTurn;
+    }
+
+    return {name, setPlayerTurn, getPlayerTurn};
 }
 
 const Human = (name) => {
 
-    const humanName = Player(name);
+    const humanName = Player(name).name;
+
+    const setPlayerTurn = Player(name).setPlayerTurn;
+
+    const getPlayerTurn = Player(name).getPlayerTurn;
 
     const buttonX = document.querySelector('aside .marks button:nth-child(1)');
 
@@ -60,7 +73,6 @@ const Human = (name) => {
         mark = value;
     }
 
-
     buttonX.addEventListener('click', () => setMark("X"));
 
     buttonO.addEventListener('click', () => setMark("O"));
@@ -76,17 +88,23 @@ const Human = (name) => {
         }))
     }
 
-    return {addMarks}
+    return {setPlayerTurn, getPlayerTurn, addMarks}
 }
 
-const Computer = () => {
+const Computer = (name) => {
 
-    const {name} = Player("Computer");
+    const computerName = Player(name);
+
+    const setPlayerTurn = Player(name).setPlayerTurn;
+
+    const getPlayerTurn = Player(name).getPlayerTurn;
+
+    return {computerName, setPlayerTurn, getPlayerTurn}
 }
 
 const human = Human('Bob');
 
-const computer = Computer();
+const computer = Computer("Computer");
 
 human.addMarks();
 
