@@ -60,6 +60,7 @@ const Human = (name) => {
         mark = value;
     }
 
+    
     buttonX.addEventListener('click', () => setMark("X"));
 
     buttonO.addEventListener('click', () => setMark("O"));
