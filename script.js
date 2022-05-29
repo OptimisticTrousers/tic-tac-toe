@@ -50,13 +50,7 @@ const Player = (name) => {
 
 const Human = (name) => {
 
-    let playerTurn = false;
-
-    const humanName = Player(name).name;
-
-    const setPlayerTurn = Player(name).setPlayerTurn;
-
-    const getPlayerTurn = Player(name).getPlayerTurn;
+    const prototype = Player(name);
 
     const buttonX = document.querySelector('aside .marks button:nth-child(1)');
 
@@ -92,7 +86,7 @@ const Human = (name) => {
         }))
     }
 
-    return {setPlayerTurn, getPlayerTurn, addMarks}
+    return Object.assign({}, prototype, {addMarks});
 }
 
 const Computer = (name) => {
@@ -108,12 +102,12 @@ const Computer = (name) => {
 
 const human = Human('Bob');
 
-const player = Player('Bob');
+console.log(human);
 
 const computer = Computer("Computer");
 
-human.addMarks();
 
 console.log(human.getPlayerTurn());
+human.addMarks();
 
 displayController.render();
