@@ -9,7 +9,7 @@ const gameBoard = function(){
         boardList[index] = mark;
     }
 
-    const getList = () => {
+    const getNodeList = () => {
         return points;
     }
 
@@ -17,7 +17,7 @@ const gameBoard = function(){
         return boardList[index];
     }
 
-    return {addElementToBoardList, getList, getElementAtIndex};
+    return {addElementToBoardList, getNodeList, getElementAtIndex};
 }();
 
 
@@ -25,7 +25,7 @@ const displayController = function(){
 
     const render = () => {
 
-        gameBoard.getList().forEach((point,index) => point.addEventListener('click', (event) => {
+        gameBoard.getNodeList().forEach((point,index) => point.addEventListener('click', (event) => {
 
             event.target.innerText = gameBoard.getElementAtIndex(index);
         }))
@@ -67,7 +67,7 @@ const Human = (name) => {
 
     const addMarks = () =>{
 
-        gameBoard.getList().forEach((point, index) => point.addEventListener('click', () => {
+        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
 
             if(gameBoard.getElementAtIndex(index) == ""){
 
