@@ -17,6 +17,11 @@ const gameBoard = function(){
         return boardList[index];
     }
 
+    const getAllEmptyCellsIndexes = (currBdSt) =>{
+
+        return currBdSt.filter(i => i != "X" && o != "o");
+    }
+
     return {addElementToBoardList, getNodeList, getElementAtIndex};
 }();
 
@@ -109,3 +114,5 @@ const computer = Computer("Computer");
 human.addMarks();
 
 displayController.render();
+
+
