@@ -4,7 +4,7 @@ const gameBoard = function(){
 
     const points = document.querySelectorAll('div.box');
 
-    const addElementToList = (mark, index) => {
+    const addElementToBoardList = (mark, index) => {
 
         boardList[index] = mark;
     }
@@ -17,7 +17,7 @@ const gameBoard = function(){
         return boardList[index];
     }
 
-    return {addElementToList, getList, getElementAtIndex};
+    return {addElementToBoardList, getList, getElementAtIndex};
 }();
 
 
@@ -71,7 +71,7 @@ const Human = (name) => {
 
             if(gameBoard.getElementAtIndex(index) == ""){
 
-                gameBoard.addElementToList(mark, index);
+                gameBoard.addElementToBoardList(mark, index);
             }
         }))
     }
