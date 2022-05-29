@@ -2,20 +2,27 @@ const gameBoard = function(){
 
     let boardList = ['', '', '', '', '', '', '', ''];
 
-    return {boardList};
+    const points = document.querySelectorAll('div.box');
+
+    function addElementToList(mark, index){
+
+        boardList[index] = mark;
+    }
+
+    function getPoints(){
+        return points;
+    }
+
+    return {setList, getPoints};
 }();
 
 const displayController = function() {
 
-    const {boardList} = gameBoard;
-
-    const points = document.querySelectorAll('div.box');
-
     const render = function(){
 
         points.forEach((point,index) => point.addEventListener('click', (event) => {
-            
-            event.target.innerText = boardList[index];
+
+            gameBoard.addElementToList(event.target.innerText, index);
         }))
     }
 
@@ -24,24 +31,20 @@ const displayController = function() {
 
 const Player = (name) => {
 
-    const points = document.querySelectorAll('div.box');
-
-    const boardList = gameBoard;
-
-    return {name, points, boardList};
+    return {name};
 }
 
 const Human = (name) => {
 
-    const boardList = Player(name).boardList;
-
-    const points = Player(name).points;
+    const {name} = Player(name);
 
     const buttonX = document.querySelector('aside .marks button:nth-child(1)');
 
     const buttonO = document.querySelector('aside .marks button:nth-child(2)');
 
     const restartButton = document.querySelector('aside > button')
+
+    let mark = "";
 
     restartButton.addEventListener('click', () => {
 
@@ -52,8 +55,6 @@ const Human = (name) => {
         mark = value;
         addMarks();
     }
-
-    let mark = "";
 
     buttonX.addEventListener('click', setMark("X"))
 
@@ -72,10 +73,7 @@ const Human = (name) => {
 
 const Computer = () => {
 
-    const {boardList} = Player("Computer").boardList;
-
-    const {points} = Player("Computer").points;
-
+    const {name} = Player("Computer");
 }
 
 const human = Human('Bob');
