@@ -9,20 +9,26 @@ const gameBoard = function(){
         boardList[index] = mark;
     }
 
-    function getPoints(){
+    function getNodeList(){
         return points;
     }
 
-    return {setList, getPoints};
+    function getBoardListElement(index){
+        return boardList[index];
+    }
+
+    return {addElementToList, getNodeList, getBoardListElement};
 }();
 
 const displayController = function() {
 
     const render = function(){
 
-        points.forEach((point,index) => point.addEventListener('click', (event) => {
+        gameBoard.getNodeList().forEach((point,index) => point.addEventListener('click', (event) => {
 
-            gameBoard.addElementToList(event.target.innerText, index);
+            console.log(gameBoard.getBoardListElement(index));
+
+            event.target.innerText = gameBoard.getBoardListElement(index);
         }))
     }
 
@@ -36,7 +42,7 @@ const Player = (name) => {
 
 const Human = (name) => {
 
-    const {name} = Player(name);
+    const humanName = Player(name);
 
     const buttonX = document.querySelector('aside .marks button:nth-child(1)');
 
@@ -53,7 +59,6 @@ const Human = (name) => {
 
     function setMark(value){
         mark = value;
-        addMarks();
     }
 
     buttonX.addEventListener('click', setMark("X"))
@@ -62,9 +67,10 @@ const Human = (name) => {
 
     function addMarks(){
 
-        points.forEach((point, index) => point.addEventListener('click', () => {
+        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
 
-            mark = boardList[index];
+            console.log(mark);
+            gameBoard.addElementToList(mark, index);
         }))
     }
 
