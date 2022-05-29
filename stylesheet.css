@@ -82,9 +82,9 @@ div.grid{
 }
 
 footer{
-    text-align: center;
-    margin-top: auto;
-    height: 10%;
+    display: flex;
+    justify-content: center;
+    height: 6%;
 }
 
 div.box{
@@ -105,8 +105,5 @@ div.box{
     aside{
         height: 30%;
         gap: 16px;
-    }
-    footer{
-        height: 5%;
     }
 }
