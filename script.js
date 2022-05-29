@@ -56,9 +56,11 @@ const Player = (name) => {
     let humanMark = "";
 
     const setPlayerTurn = (turn) => {
+
         playerTurn = turn;
     }
     const getPlayerTurn = () =>{
+
         return playerTurn;
     }
 
@@ -72,12 +74,11 @@ const Player = (name) => {
         return aiMark;
     }
 
-    const setMark = function(aiMark, humanMark) {
+    const setMark = function(computer, human) {
 
-        this.aiMark = aiMark;
-        this.humanMark = humanMark;
+        aiMark = computer;
+        humanMark = human;
     }
-
 
     return {name, setPlayerTurn, getPlayerTurn, getAiMark, getHumanMark, setMark};
 }
@@ -93,25 +94,20 @@ const Human = (name) => {
 
     const restartButton = document.querySelector('aside > button')
 
-    let mark = "";
-
     restartButton.addEventListener('click', () => {
 
         location.reload();
     })
 
-    const setMark = value =>{
-        mark = value;
-    }
-
     buttonX.addEventListener('click', function() {
 
-        setMark("X");
+        prototype.setMark("O", "X");
         buttonO.classList.add('inactive');
     })
+
     buttonO.addEventListener('click', function() {
 
-        setMark("O");
+        prototype.setMark("X", "O");
         buttonX.classList.add('inactive');
     })
 
@@ -121,7 +117,9 @@ const Human = (name) => {
 
             if(Number.isInteger(gameBoard.getElementAtIndex(index)) == true && prototype.getPlayerTurn() == true){
 
-                gameBoard.addElementToBoardList(mark, index);
+                const humanMark = prototype.getHumanMark();
+
+                gameBoard.addElementToBoardList(humanMark, index);
 
                 prototype.setPlayerTurn(false)
             }
@@ -172,8 +170,6 @@ const game = function(){
     const human = Human('Bob');
 
     const computer = Computer("Computer");
-
-    human.setMark("bob", "jones")
 
     const bestPlayInfo = computer.minimax(gameBoard.getBoardList(), computer.getPlayerTurn());
 
