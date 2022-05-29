@@ -9,6 +9,11 @@ const gameBoard = function(){
         boardList[index] = mark;
     }
 
+    const getBoardList = () => {
+
+        return boardList;
+    }
+
     const getNodeList = () => {
         return points;
     }
@@ -17,12 +22,12 @@ const gameBoard = function(){
         return boardList[index];
     }
 
-    const getAllEmptyCellsIndexes = (currBdSt) =>{
+    const getAllEmptyCellsIndexes = (boardList) =>{
 
-        return currBdSt.filter(i => i != "X" && o != "o");
+        return boardList.filter(i => i != "X" && o != "o");
     }
 
-    return {addElementToBoardList, getNodeList, getElementAtIndex};
+    return {addElementToBoardList, getNodeList, getBoardList, getElementAtIndex, getAllEmptyCellsIndexes};
 }();
 
 
@@ -108,12 +113,40 @@ const Computer = (name) => {
 
     const prototype = Player(name);
 
-    return Object.assign({}, prototype);
+    const boardList = gameBoard.getBoardList();
+
+    const checkIfWinnerFound = (currBdSt, currMark) => {
+
+    if (
+        (currBdSt[0] === currMark && currBdSt[1] === currMark && currBdSt[2] === currMark) ||
+        (currBdSt[3] === currMark && currBdSt[4] === currMark && currBdSt[5] === currMark) ||
+        (currBdSt[6] === currMark && currBdSt[7] === currMark && currBdSt[8] === currMark) ||
+        (currBdSt[0] === currMark && currBdSt[3] === currMark && currBdSt[6] === currMark) ||
+        (currBdSt[1] === currMark && currBdSt[4] === currMark && currBdSt[7] === currMark) ||
+        (currBdSt[2] === currMark && currBdSt[5] === currMark && currBdSt[8] === currMark) ||
+        (currBdSt[0] === currMark && currBdSt[4] === currMark && currBdSt[8] === currMark) ||
+        (currBdSt[2] === currMark && currBdSt[4] === currMark && currBdSt[6] === currMark)
+    ) {
+
+        return true;
+    } else {
+
+        return false;
+    }
+}
+
+    const minimax = (currBdSt, currMark) => {
+
+    }
+
+    return Object.assign({}, prototype, minimax, checkIfWinnerFound);
 }
 
 const human = Human('Bob');
 
 const computer = Computer("Computer");
+
+const bestPlayInfo = minimax()
 
 human.addMarks();
 
