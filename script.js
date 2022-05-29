@@ -36,7 +36,7 @@ const displayController = function(){
 
 const Player = (name) => {
 
-    let playerTurn = false;
+    let playerTurn = true;
 
     const setPlayerTurn = (turn) => {
         playerTurn = turn;
@@ -77,11 +77,10 @@ const Human = (name) => {
 
         gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
 
-            if(gameBoard.getElementAtIndex(index) == ""){
+            if(gameBoard.getElementAtIndex(index) == "" && prototype.getPlayerTurn() == true){
 
                 gameBoard.addElementToBoardList(mark, index);
-
-                Player.setPlayerTurn(true);
+                prototype.setPlayerTurn(false)
             }
         }))
     }
@@ -98,12 +97,12 @@ const Computer = (name) => {
 
 const human = Human('Bob');
 
-console.log(human);
+human.setPlayerTurn(true);
+
+console.log(human.getPlayerTurn());
 
 const computer = Computer("Computer");
 
-
-console.log(human.getPlayerTurn());
 human.addMarks();
 
 displayController.render();
