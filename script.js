@@ -60,7 +60,7 @@ const Human = (name) => {
         mark = value;
     }
 
-    
+
     buttonX.addEventListener('click', () => setMark("X"));
 
     buttonO.addEventListener('click', () => setMark("O"));
@@ -69,7 +69,10 @@ const Human = (name) => {
 
         gameBoard.getList().forEach((point, index) => point.addEventListener('click', () => {
 
-            gameBoard.addElementToList(mark, index);
+            if(gameBoard.getElementAtIndex(index) == ""){
+
+                gameBoard.addElementToList(mark, index);
+            }
         }))
     }
 
