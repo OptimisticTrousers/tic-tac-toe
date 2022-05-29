@@ -139,17 +139,31 @@ const Computer = (name) => {
 
     }
 
-    return Object.assign({}, prototype, minimax, checkIfWinnerFound);
+    return Object.assign({}, prototype, {minimax}, {checkIfWinnerFound});
 }
 
-const human = Human('Bob');
+const game = function(){
 
-const computer = Computer("Computer");
+    const human = Human('Bob');
 
-const bestPlayInfo = minimax()
+    const computer = Computer("Computer");
 
-human.addMarks();
+    const bestPlayInfo = computer.minimax(gameBoard.getBoardList(), computer.getPlayerTurn());
 
-displayController.render();
+    const play = () => {
+        
+        human.addMarks();
+
+        displayController.render();
+
+    }
+
+    return {play}
+}();
+
+game.play();
+
+
+
 
 
