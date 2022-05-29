@@ -93,8 +93,10 @@ div.grid{
 
 footer{
     display: flex;
-    justify-content: center;
-    height: 6%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 10%;
 }
 
 div.box{
