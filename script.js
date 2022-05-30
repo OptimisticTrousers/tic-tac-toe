@@ -122,9 +122,14 @@ const game = function(){
 
     const computer = Computer("Computer");
 
+    human.addMarks();
+
     const aiMark = computer.getAiMark();
 
     const humanMark = human.getHumanMark();
+
+    console.log(human.getAiMark());
+    console.log(humanMark);
 
     const getAllEmptyCellsIndexes = (currBdSt) =>{
 
@@ -225,32 +230,30 @@ const game = function(){
         return allTestPlayInfos[bestTestPlay];
     }
 
-
-
     const play = () => {
-        
 
+        const humanTurn = true;
 
-        human.addMarks();
+        if(humanTurn == true){
 
+            const bestPlayInfo = minimax(gameBoard.getBoardList(), aiMark);
 
-        const bestPlayInfo = minimax(gameBoard.getBoardList(), aiMark);
+            console.log(bestPlayInfo);
 
-        gameBoard.addElementToBoardList(aiMark, bestPlayInfo.index);
+            gameBoard.addElementToBoardList(aiMark, bestPlayInfo.index);
 
-        displayController.render();
-
+            displayController.render();
+        }
 
     }
 
     return {play}
 }();
 
-
-
 game.play();
 
-console.log(gameBoard.getBoardList())
+
+
 
 
 
