@@ -87,8 +87,8 @@ div.grid{
     
     display: grid;
     background-color: white;
-    grid-template-columns: repeat(3, 150px);
-    grid-template-rows: repeat(3, 150px);
+    grid-template-columns: repeat(3, 157px);
+    grid-template-rows: repeat(3, 157px);
 }
 
 footer{
@@ -113,12 +113,6 @@ div.box{
         padding: 1rem 6rem;
     }
 
-    .results > .marks{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-    }
 
     aside > button{
         padding: 1.25 4rem;
@@ -127,4 +121,28 @@ div.box{
         height: 30%;
         gap: 16px;
     }
+}
+
+@media(max-width: 880px){
+
+    div.grid{
+        
+        display: grid;
+        background-color: white;
+        grid-template-columns: repeat(3, 125px);
+        grid-template-rows: repeat(3, 125px);
+    }
+
+    .marks{
+        display: flex;
+    }
+
+    .marks > button:nth-child(1), .marks > button:nth-child(2){
+        padding: 0.75rem 4.5rem;
+    }
+
+    footer{
+        display: none;
+    }
+
 }
