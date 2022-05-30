@@ -62,7 +62,7 @@ const Player = (name) => {
         humanMark = human;
     }
 
-    return {name, setPlayerTurn, getPlayerTurn, getAiMark, getHumanMark, setMark};
+    return {name, getAiMark, getHumanMark, setMark};
 }
 
 
@@ -97,13 +97,11 @@ const Human = (name) => {
 
         gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
 
-            if(gameBoard.getElementAtIndex(index) == "" && prototype.getPlayerTurn() == true){
+            if(gameBoard.getElementAtIndex(index) == ""){
 
                 const humanMark = prototype.getHumanMark();
 
                 gameBoard.addElementToBoardList(humanMark, index);
-
-                prototype.setPlayerTurn(false)
             }
         }))
     }
@@ -132,7 +130,6 @@ const game = function(){
 
         return currBdSt.filter(i => Number.isInteger(i));
     }
-
 
     const checkIfWinnerFound = (currBdSt, currMark) => {
 
@@ -233,17 +230,13 @@ const game = function(){
     const play = () => {
         
 
-        if(human.getPlayerTurn() == true){
 
-            human.addMarks();
-        }
+        human.addMarks();
 
-        if(computer.getPlayerTurn() == true){
 
-            const bestPlayInfo = minimax(currentBoardState, aiMark);
+        const bestPlayInfo = minimax(gameBoard.getBoardList(), aiMark);
 
-            gameBoard.addElementToBoardList(aiMark, bestPlayInfo.index);
-        }
+        gameBoard.addElementToBoardList(aiMark, bestPlayInfo.index);
 
         displayController.render();
 
@@ -254,10 +247,8 @@ const game = function(){
 }();
 
 
-while(gameBoard.getBoardList().includes(Number)){
 
-    game.play();
-}
+game.play();
 
 console.log(gameBoard.getBoardList())
 
