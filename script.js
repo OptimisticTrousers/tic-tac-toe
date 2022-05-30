@@ -47,91 +47,8 @@ const displayController = function(){
     return {render};
 }();
 
-const Player = (name) => {
-
-    let playerTurn = false;
-
-    let aiMark = "";
-
-    let humanMark = "";
-
-    const getHumanMark = () => {
-
-        return humanMark;
-    }
-
-    const getAiMark = () => {
-
-        return aiMark;
-    }
-
-    const setHumanTurn = () => {
-
-        return playerTurn;
-    }
-
-    const setMark = function(computer, human) {
-
-        aiMark = computer;
-        humanMark = human;
-    }
-
-    return {name, getAiMark, getHumanMark, setMark, setHumanTurn};
-}
-
-
-const Human = (name) => {
-
-    const prototype = Player(name);
-
-    const buttonX = document.querySelector('aside .marks button:nth-child(1)');
-
-    const buttonO = document.querySelector('aside .marks button:nth-child(2)');
-
-    const restartButton = document.querySelector('aside > button')
-
-    restartButton.addEventListener('click', () => {
-
-        location.reload();
-    })
-
-    buttonX.addEventListener('click', function() {
-
-        prototype.setMark("O", "X");
-        buttonO.classList.add('inactive');
-    })
-
-    buttonO.addEventListener('click', function() {
-
-        prototype.setMark("X", "O");
-        buttonX.classList.add('inactive');
-    })
-
-    const addMarks = () =>{
-
-        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
-
-                gameBoard.addElementToBoardList("o", index);
-                displayController.render();
-
-        }))
-    }
-
-    return Object.assign({}, prototype, {addMarks});
-}
-
-const Computer = (name) => {
-
-    const prototype = Player(name);
-
-    return Object.assign({}, prototype);
-}
 
 const game = function(){
-
-    const human = Human('Bob');
-
-    const computer = Computer("Computer");
 
       let player = 'x';
   let player1 = 'Player 1'; //player1 is x
@@ -272,13 +189,9 @@ function minimax(board, player) {
 
     const play = () => {
 
-        human.addMarks();
-
         randomComputerMove();
 
-        const bestPlayInfo = minimax(gameBoard.getBoardList(), "x");
 
-        gameBoard.addElementToBoardList("x", bestPlayInfo.index);
 
 
     }
@@ -289,12 +202,102 @@ function minimax(board, player) {
 
         gameBoard.addElementToBoardList("x", randomPoint);
 
+        displayController.render();
+
 
     }
 
-    return {play}
+    return {play, minimax}
 }();
 
 game.play();
 
 
+
+const Player = (name) => {
+
+    let playerTurn = false;
+
+    let aiMark = "";
+
+    let humanMark = "";
+
+    const getHumanMark = () => {
+
+        return humanMark;
+    }
+
+    const getAiMark = () => {
+
+        return aiMark;
+    }
+
+    const setHumanTurn = () => {
+
+        return playerTurn;
+    }
+
+    const setMark = function(computer, human) {
+
+        aiMark = computer;
+        humanMark = human;
+    }
+
+    return {name, getAiMark, getHumanMark, setMark, setHumanTurn};
+}
+
+
+const Human = (name) => {
+
+    const prototype = Player(name);
+
+    const buttonX = document.querySelector('aside .marks button:nth-child(1)');
+
+    const buttonO = document.querySelector('aside .marks button:nth-child(2)');
+
+    const restartButton = document.querySelector('aside > button')
+
+    restartButton.addEventListener('click', () => {
+
+        location.reload();
+    })
+
+    buttonX.addEventListener('click', function() {
+
+        prototype.setMark("O", "X");
+        buttonO.classList.add('inactive');
+    })
+
+    buttonO.addEventListener('click', function() {
+
+        prototype.setMark("X", "O");
+        buttonX.classList.add('inactive');
+    })
+
+    const addMarks = () =>{
+
+        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
+
+                gameBoard.addElementToBoardList("o", index);
+
+                const bestPlayInfo = game.minimax(gameBoard.getBoardList(), "x");
+                gameBoard.addElementToBoardList("x", bestPlayInfo.index);
+
+                displayController.render();
+
+        }))
+    }
+
+    return Object.assign({}, prototype, {addMarks});
+}
+
+const Computer = (name) => {
+
+    const prototype = Player(name);
+
+    return Object.assign({}, prototype);
+}
+
+const human = Human("Bob")
+
+human.addMarks();
