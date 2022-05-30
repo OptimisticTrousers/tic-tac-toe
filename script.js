@@ -36,10 +36,12 @@ const displayController = function(){
 
     const render = () => {
 
-        gameBoard.getNodeList().forEach((point,index) => point.addEventListener('click', (event) => {
+        for(let i = 0; i < gameBoard.getBoardList().length; i++){
 
-                event.target.innerText = gameBoard.getElementAtIndex(index);
-        }))
+            const element = document.querySelector(`.box:nth-child(${i+1})`);
+
+            element.innerText = gameBoard.getElementAtIndex(i);
+        }
     }
 
     return {render};
@@ -107,9 +109,9 @@ const Human = (name) => {
 
     const addMarks = () =>{
 
-        gameBoard.getBoardList().forEach((point, index) => point.addEventListener('click', () => {
+        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
 
-                gameBoard.addElementToBoardList("O", index);
+                gameBoard.addElementToBoardList("o", index);
                 displayController.render();
 
         }))
@@ -270,13 +272,14 @@ function minimax(board, player) {
 
     const play = () => {
 
-        randomComputerMove();
-
         human.addMarks();
+
+        randomComputerMove();
 
         const bestPlayInfo = minimax(gameBoard.getBoardList(), "x");
 
         gameBoard.addElementToBoardList("x", bestPlayInfo.index);
+
 
     }
 
@@ -286,7 +289,6 @@ function minimax(board, player) {
 
         gameBoard.addElementToBoardList("x", randomPoint);
 
-        displayController.render();
 
     }
 
