@@ -87,8 +87,8 @@ div.grid{
     
     display: grid;
     background-color: white;
-    grid-template-columns: repeat(3, 157px);
-    grid-template-rows: repeat(3, 157px);
+    grid-template-columns: repeat(3, 150px);
+    grid-template-rows: repeat(3, 150px);
 }
 
 footer{
@@ -111,6 +111,13 @@ div.box{
     aside div.marks > button{
 
         padding: 1rem 6rem;
+    }
+
+    .results > .marks{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
     }
 
     aside > button{
