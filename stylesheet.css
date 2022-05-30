@@ -102,6 +102,8 @@ footer{
 div.box{
 
     border: 1px solid black;
+    text-align: center;
+    font-size: 110px;
 }
 
 @media (max-width: 1288px) {
