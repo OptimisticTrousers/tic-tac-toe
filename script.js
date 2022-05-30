@@ -40,10 +40,7 @@ const displayController = function(){
     return {render};
 }();
 
-
 const Player = (name) => {
-
-    let playerTurn = false;
 
     let aiMark = "";
 
@@ -69,88 +66,14 @@ const Player = (name) => {
 }
 
 
-const Human = (name) => {
-
-    const prototype = Player(name);
-
-    const buttonX = document.querySelector('aside .marks button:nth-child(1)');
-
-    const buttonO = document.querySelector('aside .marks button:nth-child(2)');
-
-    const restartButton = document.querySelector('aside > button')
-
-    let gameOver = false;
-
-    restartButton.addEventListener('click', () => {
-
-        location.reload();
-    })
-
-    buttonX.addEventListener('click', function() {
-
-        prototype.setMark("O", "X");
-        buttonO.classList.add('inactive');
-    })
-
-    buttonO.addEventListener('click', function() {
-
-        prototype.setMark("X", "O");
-        buttonX.classList.add('inactive');
-    })
-
-    const addMarks = () =>{
-
-        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
-
-                const results = document.querySelector('aside > p.results')
-
-
-                if(gameBoard.getElementAtIndex(index) === "" && gameOver == false){
-
-                    gameBoard.addElementToBoardList("o", index);
-
-                    displayController.render();
-
-                    const bestPlayInfo = game.minimax(gameBoard.getBoardList(), "x");
-                    gameBoard.addElementToBoardList("x", bestPlayInfo.index);
-
-                        
-                    displayController.render();
-
-                }
-
-                if(game.checkIfWinnerFound(gameBoard.getBoardList(), "o")){
-
-                    results.textContent = "YOU WIN! Restart to play again!"
-                    gameOver = true;
-                }
-                else if(game.checkIfWinnerFound(gameBoard.getBoardList(), "x")){
-                    results.textContent = "YOU LOSE! Restart to play again!"
-                    gameOver = true;
-                }
-                else if(gameBoard.getBoardList().includes("") === false){
-                    results.textContent = "TIE! Restart to play again!"
-                    gameOver = true;
-                }
-
-        }))
-    }
-
-    return Object.assign({}, prototype, {addMarks});
-}
-
-const Computer = (name) => {
-
-    const prototype = Player(name);
-
-    return Object.assign({}, prototype);
-}
-
 const game = function(){
+    
+    let player1 = "";
 
-      let player = 'x';
-  let player1 = 'Player 1'; //player1 is x
-  let player2 = 'Player 2'; //player2 is o
+    let player2 = "";
+
+
+
 
 function getAllEmptyCellsIndexes(currBdSt) {
     return currBdSt.filter(i => i == "");
@@ -285,25 +208,6 @@ function minimax(board, player) {
         return availableCells;
   }
 
-    const human = Human("Bob")
-
-
-    const play = () => {
-
-        if(human.getHumanMark() == "O"){
-
-            randomComputerMove();
-
-            human.addMarks();
-        }
-        else{
-            human.addMarks();
-        }
-
-
-
-
-    }
 
     const randomComputerMove = () => {
 
@@ -315,10 +219,103 @@ function minimax(board, player) {
 
 
     }
+        function play(player){
 
-    return {play, minimax, checkIfWinnerFound}
+            if(player.getAiMark() == "x"){
+                randomComputerMove();
+                player1 = 'Player 1'; //player1 is x
+                player2 = 'Player 2'; //player2 is o
+            }
+            else{
+
+                player2 = 'Player 1'; //player1 is x
+                player1 = 'Player 2'; //player2 is o
+            }
+            
+
+
+        }
+
+    return {play, minimax, checkIfWinnerFound, randomComputerMove}
 }();
 
-game.play();
 
 
+const Human = (name) => {
+
+    const prototype = Player(name);
+
+    const buttonX = document.querySelector('aside .marks button:nth-child(1)');
+
+    const buttonO = document.querySelector('aside .marks button:nth-child(2)');
+
+    const restartButton = document.querySelector('aside > button')
+
+    let gameOver = false;
+
+    let computerIsPlaying = false;
+
+    restartButton.addEventListener('click', () => {
+
+        location.reload();
+    })
+
+    const eventListener = (computerMark, playerMark) => {
+
+        buttonX.classList.add('inactive');
+        game.play(prototype);
+        addMarks();
+    }
+
+    buttonX.addEventListener('click', () => eventListener(prototype.setMark("o", "x")))
+
+    buttonO.addEventListener('click', () => eventListener(prototype.setMark("x", "o")))
+
+
+    const addMarks = () =>{
+
+        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
+
+                const results = document.querySelector('aside > p.results')
+
+                if(gameBoard.getElementAtIndex(index) === "" && gameOver == false && computerIsPlaying == false){
+
+                    gameBoard.addElementToBoardList(prototype.getHumanMark(), index);
+
+                    displayController.render();
+
+                    const bestPlayInfo = game.minimax(gameBoard.getBoardList(), prototype.getAiMark());
+
+                    gameBoard.addElementToBoardList(prototype.getAiMark(), bestPlayInfo.index);
+                    
+                    displayController.render();
+                }
+
+                if(game.checkIfWinnerFound(gameBoard.getBoardList(), prototype.getHumanMark())){
+
+                    results.textContent = "YOU WIN! Restart to play again!"
+                    gameOver = true;
+                }
+                else if(game.checkIfWinnerFound(gameBoard.getBoardList(), prototype.getAiMark())){
+                    results.textContent = "YOU LOSE! Restart to play again!"
+                    gameOver = true;
+                }
+                else if(gameBoard.getBoardList().includes("") === false){
+                    results.textContent = "TIE! Restart to play again!"
+                    gameOver = true;
+                }
+
+        }))
+    }
+
+    return Object.assign({}, prototype, {addMarks});
+}
+
+const Computer = (name) => {
+
+    const prototype = Player(name);
+
+    return Object.assign({}, prototype);
+}
+
+const human = Human("Bob");
