@@ -1,6 +1,6 @@
 const gameBoard = function(){
 
-    let boardList = ["", "", "", "", "", "", "", "", ""];
+    const boardList = ["", "", "", "", "", "", "", "", ""];
 
     const points = document.querySelectorAll('div.box');
 
@@ -22,10 +22,15 @@ const gameBoard = function(){
         return boardList[index];
     }
 
+      function set (index, player) {
+    if ((player !== 'x' && player !== 'o') || index < 0 || index > 8) return;
+    if (boardList[index] !== '') return; //prevents overwriting of cells
+    boardList[index] = player;
+  }
 
-    return {addElementToBoardList, getNodeList, getBoardList, getElementAtIndex};
+
+    return {set, addElementToBoardList, getNodeList, getBoardList, getElementAtIndex};
 }();
-
 
 const displayController = function(){
 
@@ -42,6 +47,8 @@ const displayController = function(){
 
 const Player = (name) => {
 
+    let playerTurn = false;
+
     let aiMark = "";
 
     let humanMark = "";
@@ -56,13 +63,18 @@ const Player = (name) => {
         return aiMark;
     }
 
+    const setHumanTurn = () => {
+
+        return playerTurn;
+    }
+
     const setMark = function(computer, human) {
 
         aiMark = computer;
         humanMark = human;
     }
 
-    return {name, getAiMark, getHumanMark, setMark};
+    return {name, getAiMark, getHumanMark, setMark, setHumanTurn};
 }
 
 
@@ -95,14 +107,11 @@ const Human = (name) => {
 
     const addMarks = () =>{
 
-        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
+        gameBoard.getBoardList().forEach((point, index) => point.addEventListener('click', () => {
 
-            if(gameBoard.getElementAtIndex(index) == ""){
+                gameBoard.addElementToBoardList("O", index);
+                displayController.render();
 
-                const humanMark = prototype.getHumanMark();
-
-                gameBoard.addElementToBoardList(humanMark, index);
-            }
         }))
     }
 
@@ -122,128 +131,162 @@ const game = function(){
 
     const computer = Computer("Computer");
 
-    human.addMarks();
+      let player = 'x';
+  let player1 = 'Player 1'; //player1 is x
+  let player2 = 'Player 2'; //player2 is o
 
-    const aiMark = computer.getAiMark();
+function getAllEmptyCellsIndexes(currBdSt) {
+    return currBdSt.filter(i => i == "");
+}
 
-    const humanMark = human.getHumanMark();
-
-    console.log(human.getAiMark());
-    console.log(humanMark);
-
-    const getAllEmptyCellsIndexes = (currBdSt) =>{
-
-        return currBdSt.filter(i => Number.isInteger(i));
+  function _testForWinner(optionalBoard) {
+    let winner = 'none';
+    let board;
+    if (optionalBoard) {
+      board = optionalBoard;
+    } else {
+      board = gameBoard.getBoardList();
     }
 
-    const checkIfWinnerFound = (currBdSt, currMark) => {
+    const winLines = [
+      [board[0],board[1],board[2]], [board[3],board[4],board[5]],
+      [board[6],board[7],board[8]], [board[0],board[3],board[6]],
+      [board[1],board[4],board[7]], [board[2],board[5],board[8]],
+      [board[0],board[4],board[8]], [board[2],board[4],board[6]] 
+    ];
 
-        if (
-            (currBdSt[0] === currMark && currBdSt[1] === currMark && currBdSt[2] === currMark) ||
-            (currBdSt[3] === currMark && currBdSt[4] === currMark && currBdSt[5] === currMark) ||
-            (currBdSt[6] === currMark && currBdSt[7] === currMark && currBdSt[8] === currMark) ||
-            (currBdSt[0] === currMark && currBdSt[3] === currMark && currBdSt[6] === currMark) ||
-            (currBdSt[1] === currMark && currBdSt[4] === currMark && currBdSt[7] === currMark) ||
-            (currBdSt[2] === currMark && currBdSt[5] === currMark && currBdSt[8] === currMark) ||
-            (currBdSt[0] === currMark && currBdSt[4] === currMark && currBdSt[8] === currMark) ||
-            (currBdSt[2] === currMark && currBdSt[4] === currMark && currBdSt[6] === currMark)
-        ) {
+    let isX = (currentValue) => currentValue === 'x';
+    let isO = (currentValue) => currentValue === 'o';
+    let isNotEmpty = (currentValue) => currentValue !== '';
 
-            return true;
+    winLines.forEach(line => {
+      if (line.every(isX) || line.every(isO)) {
+        if (line.includes('x')) {
+          winner = player1;
+          return;
         } else {
-
-            return false;
+          winner = player2;
+          return;
         }
+      }
+    });
+
+    if (winner === 'none' && board.every(isNotEmpty)) winner = 'tie';
+    return winner;
+  }
+
+// Step 5 - Create a winner determiner function:
+function checkIfWinnerFound(currBdSt, currMark) {
+    if (
+        (currBdSt[0] === currMark && currBdSt[1] === currMark && currBdSt[2] === currMark) ||
+        (currBdSt[3] === currMark && currBdSt[4] === currMark && currBdSt[5] === currMark) ||
+        (currBdSt[6] === currMark && currBdSt[7] === currMark && currBdSt[8] === currMark) ||
+        (currBdSt[0] === currMark && currBdSt[3] === currMark && currBdSt[6] === currMark) ||
+        (currBdSt[1] === currMark && currBdSt[4] === currMark && currBdSt[7] === currMark) ||
+        (currBdSt[2] === currMark && currBdSt[5] === currMark && currBdSt[8] === currMark) ||
+        (currBdSt[0] === currMark && currBdSt[4] === currMark && currBdSt[8] === currMark) ||
+        (currBdSt[2] === currMark && currBdSt[4] === currMark && currBdSt[6] === currMark)
+) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// Step 6 - Create the minimax algorithm:
+function minimax(board, player) {
+    //find available cells of each board that passes through the function
+    let availableCells = _getAvailableCells(board);
+
+    //attributes a higher score to favorable outcomes
+    if(_testForWinner(board) === player1) {
+      return {score: -10};
+    } else if (_testForWinner(board) === player2) {
+      return {score: 10};
+    } else if (_testForWinner(board) === 'tie') {
+      return {score: 0};
     }
 
-    const minimax = (currBdSt, currMark) => {
+    //apply the score to all available moves and save them
+    let moves = [];
 
-    const availCellsIndex = getAllEmptyCellsIndexes(currBdSt);
+    availableCells.forEach( cell => {
+      let move = {};
+      move.index = cell;
+      board[cell] = player;
 
-        if(checkIfWinnerFound(currBdSt, humanMark)){
-            return {score: -1}
+
+      if (player === 'o') {
+        let result = minimax(board, 'x');
+        move.score = result.score;
+      } else {
+        let result = minimax(board, 'o');
+        move.score = result.score;
+      }
+  
+      board[cell] = '';
+  
+      moves.push(move);
+    })
+
+    //find most favorable score out of all saved moves
+    let bestMove;
+  
+    if(player === 'o') {
+      let bestScore = Number.NEGATIVE_INFINITY;
+      moves.forEach( (move, indexOfBestScore) => {
+        if (move.score > bestScore) {
+          bestScore = move.score;
+          bestMove = indexOfBestScore;
         }
-        else if(checkIfWinnerFound(currBdSt, aiMark)){
-            return {score: 1};
+      })
+    } else {
+      let bestScore = Number.POSITIVE_INFINITY;
+      moves.forEach( (move, indexOfBestScore) => {
+        if (move.score < bestScore) {
+          bestScore = move.score;
+          bestMove = indexOfBestScore;
         }
-        else if(availCellsIndex.length === 0){
-            return {score: 0};
-        }
-
-    const allTestPlayInfos = [];
-
-    for(let i = 0; i < availCellsIndex.length; i++){
-
-        const currentTestPlayInfo = {};
-
-        currentTestPlayInfo.index = currBdSt[availCellsIndex[i]];
-
-        currBdSt[availCellsIndex[i]] = currMark;
-
-        if(currMark === aiMark){
-
-            const result = minimax(currBdSt, humanMark);
-
-            currentTestPlayInfo.score = result.score;
-        }
-        else {
-
-            const result = minimax(currBdSt, aiMark);
-
-            currentTestPlayInfo.score = result.score;
-        }
-
-        currBdSt[availCellsIndex[i]] = currentTestPlayInfo.index;
-
-        allTestPlayInfos.push(currentTestPlayInfo);
-
+      })
     }
+    //return the best move
+    return moves[bestMove];
+  }
 
-    let bestTestPlay = null;
+  function _getAvailableCells(optionalBoard) {
+    availableCells = [];
 
-        if(currMark === aiMark){
-
-            let bestScore = -Infinity;
-            for(let i = 0; i < allTestPlayInfos.length; i++){
-
-                if(allTestPlayInfos[i].score > bestScore){
-
-                    bestScore = allTestPlayInfos[i].score;
-
-                    bestTestPlay = i;
-                }
-            }
-        }
-        else {
-            let bestScore = Infinity;
-
-            for(let i = 0; i < allTestPlayInfos.length; i++){
-
-                if(allTestPlayInfos[i].score < bestScore){
-
-                    bestScore = allTestPlayInfos[i].score
-                    bestTestPlay = i;
-                }
-            }
-        }
-
-        return allTestPlayInfos[bestTestPlay];
+    if (optionalBoard) {
+      optionalBoard.forEach( (cell, index) => {
+        if(cell === '') availableCells.push(index);
+      });
+    } else {
+      gameBoard.getBoardList().forEach( (cell, index) => {
+        if(cell === '') availableCells.push(index);
+      });
     }
+        return availableCells;
+  }
 
     const play = () => {
 
-        const humanTurn = true;
+        randomComputerMove();
 
-        if(humanTurn == true){
+        human.addMarks();
 
-            const bestPlayInfo = minimax(gameBoard.getBoardList(), aiMark);
+        const bestPlayInfo = minimax(gameBoard.getBoardList(), "x");
 
-            console.log(bestPlayInfo);
+        gameBoard.addElementToBoardList("x", bestPlayInfo.index);
 
-            gameBoard.addElementToBoardList(aiMark, bestPlayInfo.index);
+    }
 
-            displayController.render();
-        }
+    const randomComputerMove = () => {
+
+        let randomPoint = parseInt(Math.random() * 8) + 1;
+
+        gameBoard.addElementToBoardList("x", randomPoint);
+
+        displayController.render();
 
     }
 
@@ -251,9 +294,5 @@ const game = function(){
 }();
 
 game.play();
-
-
-
-
 
 
