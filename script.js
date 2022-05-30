@@ -269,13 +269,19 @@ const Human = (name) => {
 
     buttonX.addEventListener('click', function() {
 
+        const currentMark = document.querySelector('.current-mark');
+
+        currentMark.textContent = "You picked X!"
         this.classList.add('inactive');
+        buttonO.classList.add('inactive');
         eventListener()
         prototype.setMark("o", "x")
     })
     buttonO.addEventListener('click', function() {
 
+        currentMark.textContent = "You picked O!"
         this.classList.add('inactive');
+        buttonX.classList.add('inactive');
         eventListener()
         game.randomComputerMove();
         prototype.setMark("x", "o")

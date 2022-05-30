@@ -99,6 +99,10 @@ footer{
     height: 10%;
 }
 
+.current-mark{
+    font-size: 48px;
+}
+
 div.box{
 
     border: 1px solid black;
@@ -135,6 +139,10 @@ div.box{
 
     .marks{
         display: flex;
+    }
+
+    aside{
+        margin-bottom: 1rem;
     }
 
     .marks > button:nth-child(1), .marks > button:nth-child(2){
