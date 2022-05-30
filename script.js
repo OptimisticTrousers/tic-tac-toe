@@ -22,14 +22,7 @@ const gameBoard = function(){
         return boardList[index];
     }
 
-      function set (index, player) {
-    if ((player !== 'x' && player !== 'o') || index < 0 || index > 8) return;
-    if (boardList[index] !== '') return; //prevents overwriting of cells
-    boardList[index] = player;
-  }
-
-
-    return {set, addElementToBoardList, getNodeList, getBoardList, getElementAtIndex};
+    return {addElementToBoardList, getNodeList, getBoardList, getElementAtIndex};
 }();
 
 const displayController = function(){
@@ -66,18 +59,13 @@ const Player = (name) => {
         return aiMark;
     }
 
-    const setHumanTurn = () => {
-
-        return playerTurn;
-    }
-
     const setMark = function(computer, human) {
 
         aiMark = computer;
         humanMark = human;
     }
 
-    return {name, getAiMark, getHumanMark, setMark, setHumanTurn};
+    return {name, getAiMark, getHumanMark, setMark};
 }
 
 
