@@ -42,20 +42,9 @@ const displayController = function(){
 
 const Player = (name) => {
 
-    let playerTurn = true;
-
     let aiMark = "";
 
     let humanMark = "";
-
-    const setPlayerTurn = (turn) => {
-
-        playerTurn = turn;
-    }
-    const getPlayerTurn = () =>{
-
-        return playerTurn;
-    }
 
     const getHumanMark = () => {
 
