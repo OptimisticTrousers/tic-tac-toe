@@ -257,6 +257,8 @@ const Human = (name) => {
 
     const restartButton = document.querySelector('aside > button')
 
+    let gameOver = false;
+
     restartButton.addEventListener('click', () => {
 
         location.reload();
@@ -278,7 +280,10 @@ const Human = (name) => {
 
         gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
 
-                if(gameBoard.getElementAtIndex(index) === ""){
+                const results = document.querySelector('aside > p.results')
+
+
+                if(gameBoard.getElementAtIndex(index) === "" && gameOver == false){
 
                     gameBoard.addElementToBoardList("o", index);
 
@@ -293,13 +298,17 @@ const Human = (name) => {
                 }
 
                 if(game.checkIfWinnerFound(gameBoard.getBoardList(), "o")){
-                    console.log("YOU WIN")
+
+                    results.textContent = "YOU WIN!"
+                    gameOver = true;
                 }
                 else if(game.checkIfWinnerFound(gameBoard.getBoardList(), "x")){
-                    console.log("YOU LOSE!")
+                    results.textContent = "YOU LOSE!"
+                    gameOver = true;
                 }
                 else if(gameBoard.getBoardList().includes("") === false){
-                    console.log("TIE GAME!")
+                    results.textContent = "TIE!"
+                    gameOver = true;
                 }
 
 
