@@ -207,7 +207,7 @@ function minimax(board, player) {
 
     }
 
-    return {play, minimax}
+    return {play, minimax, checkIfWinnerFound}
 }();
 
 game.play();
@@ -278,12 +278,30 @@ const Human = (name) => {
 
         gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
 
-                gameBoard.addElementToBoardList("o", index);
+                if(gameBoard.getElementAtIndex(index) === ""){
 
-                const bestPlayInfo = game.minimax(gameBoard.getBoardList(), "x");
-                gameBoard.addElementToBoardList("x", bestPlayInfo.index);
+                    gameBoard.addElementToBoardList("o", index);
 
-                displayController.render();
+                    displayController.render();
+
+                    const bestPlayInfo = game.minimax(gameBoard.getBoardList(), "x");
+                    gameBoard.addElementToBoardList("x", bestPlayInfo.index);
+
+                        
+                    displayController.render();
+
+                }
+
+                if(game.checkIfWinnerFound(gameBoard.getBoardList(), "o")){
+                    console.log("YOU WIN")
+                }
+                else if(game.checkIfWinnerFound(gameBoard.getBoardList(), "x")){
+                    console.log("YOU LOSE!")
+                }
+                else if(gameBoard.getBoardList().includes("") === false){
+                    console.log("TIE GAME!")
+                }
+
 
         }))
     }
