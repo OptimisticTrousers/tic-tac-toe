@@ -260,16 +260,26 @@ const Human = (name) => {
         location.reload();
     })
 
-    const eventListener = (computerMark, playerMark) => {
+   function eventListener () {
 
-        buttonX.classList.add('inactive');
-        game.play(prototype);
         addMarks();
+        game.play(prototype);
+        
     }
 
-    buttonX.addEventListener('click', () => eventListener(prototype.setMark("o", "x")))
+    buttonX.addEventListener('click', function() {
 
-    buttonO.addEventListener('click', () => eventListener(prototype.setMark("x", "o")))
+        this.classList.add('inactive');
+        eventListener()
+        prototype.setMark("o", "x")
+    })
+    buttonO.addEventListener('click', function() {
+
+        this.classList.add('inactive');
+        eventListener()
+        game.randomComputerMove();
+        prototype.setMark("x", "o")
+    })
 
 
     const addMarks = () =>{
