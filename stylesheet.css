@@ -120,6 +120,10 @@ div.box{
     margin-bottom: 1rem;
 }
 
+h2.directions {
+    text-align: center;
+}
+
 @media (max-width: 1288px) {
 
     aside div.marks > button{
