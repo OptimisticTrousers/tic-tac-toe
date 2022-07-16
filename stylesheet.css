@@ -17,6 +17,8 @@ main{
 h1.title{
     height: 0%;
     text-align: center;
+    padding: 2rem 0;
+    margin-bottom: 1rem;
 }
 
 aside{
@@ -72,6 +74,7 @@ aside div.marks button:nth-child(2):hover{
 aside > button{
 
     padding: 1.5rem 4rem;
+    margin-bottom: 2rem;
     border: 1px solid black;
     border-radius: 9999px;
     background-color: #101419;
@@ -137,7 +140,7 @@ div.box{
     }
 }
 
-@media(max-width: 960px){
+@media(max-width: 1060px){
 
     * {
 
@@ -153,6 +156,12 @@ div.box{
         grid-template-rows: repeat(3, 125px);
     }
 
+    .directions {
+        font-size: 1.5rem;
+        text-align: center;
+        padding: 0rem 1rem;
+    }
+
     .marks{
 
         display: flex;
@@ -162,6 +171,10 @@ div.box{
         
         flex-direction: column;
         margin-bottom: 1rem;
+        height: min-content;
+    }
+    .directions {
+        padding-top: 1rem;
     }
 
     .marks > button:nth-child(1), .marks > button:nth-child(2){
