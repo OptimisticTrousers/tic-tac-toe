@@ -1,8 +1,3 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
 body{
 
     height: 100vh;
@@ -31,7 +26,6 @@ aside{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
 }
 
 aside div.marks > button{
@@ -147,24 +141,12 @@ div.box{
 
 @media(max-width: 1060px){
 
-    * {
-
-        margin: 0;
-        padding: 0;
-    }
-
     div.grid{
         
         display: grid;
         background-color: white;
         grid-template-columns: repeat(3, 125px);
         grid-template-rows: repeat(3, 125px);
-    }
-
-    .directions {
-        font-size: 1.5rem;
-        text-align: center;
-        padding: 0rem 1rem;
     }
 
     .marks{
@@ -175,11 +157,8 @@ div.box{
     main{
         
         flex-direction: column;
-        margin-bottom: 1rem;
-        height: min-content;
-    }
-    .directions {
-        padding-top: 1rem;
+        padding-bottom: 50px;
+        height: 100%;
     }
 
     .marks > button:nth-child(1), .marks > button:nth-child(2){
@@ -190,5 +169,21 @@ div.box{
     footer{
 
         display: none;
+    }
+}
+
+@media(max-width: 375px) {
+
+    div.grid{
+        display: grid;
+        background-color: white;
+        grid-template-columns: repeat(3, 115px);
+        grid-template-rows: repeat(3, 115px);
+    }
+    .directions {
+        display: none
+    }
+    aside {
+        justify-content: flex-end;
     }
 }
