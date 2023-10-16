@@ -1,193 +1,492 @@
-body{
-
-    height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: aliceblue;
+@font-face {
+  font-family: "Alesand";
+  src: url(./assets/Alesand.ttf);
 }
 
-main{
-
-    height: 90%;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    align-items: center;
+html {
+  height: 100%;
 }
 
-h1.title{
-    height: 0%;
-    text-align: center;
-    padding: 2rem 0;
-    margin-bottom: 1rem;
+body {
+  margin: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: #20232a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url(./assets/tic-tac-toe.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-aside{
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+main {
+  background-color: #fcecee;
+  border-radius: 15px;
+  padding: 3rem;
+  margin-top: 2rem;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15), 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-aside div.marks > button{
-
-    padding: 2.5rem 6rem;
-    font-size: 3rem;
-    border-radius: 25px;
-    border: 1px solid white;
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-aside div.marks button:nth-child(1){
-
-    background-color: #FFD166;
-    color: #FFFCF9;
+.icon-option {
+  width: 52px;
+  height: 52px;
 }
 
-aside div.marks button:nth-child(1).inactive{
-
-    display: none;
+.title {
+  font-family: "Alesand";
+  font-size: 3rem;
+  margin: 0;
+  color: #000101;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
 }
 
-aside div.marks button:nth-child(2).inactive{
-
-    display: none;
+.red {
+  color: #f03846;
 }
 
-aside div.marks button:nth-child(1):hover{
-
-    background-color: #FFE066;
-    cursor: pointer;
+aside {
+  margin-left: 40px;
 }
 
-aside div.marks button:nth-child(2){
-
-    background-color: #26547C;
-    color: #FFFCF9;
+.board {
+  margin-right: 6rem;
 }
 
-aside div.marks button:nth-child(2):hover{
-
-    background-color: #247BA0;
-    cursor: pointer;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 120px);
+  grid-template-rows: repeat(3, 120px);
+  background-color: #1a1f22;
+  /* border: 10px solid #1a1f22; */
+  padding: 2rem;
+  border-radius: 8px;
+  gap: 20px;
 }
 
-aside > button{
-
-    padding: 1.5rem 4rem;
-    margin-bottom: 2rem;
-    border: 1px solid black;
-    border-radius: 9999px;
-    background-color: #101419;
-    color: #FFFCF9;
+.box {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #22252b;
+  border-radius: 8px;
+  border: 0;
+  color: #fefeff;
+  font-size: 20px;
+  border-radius: 20px;
+  font-family: "Permanent Marker", cursive;
+  border: 1px solid black;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 100px;
+  line-height: 120px;
 }
 
-aside > button:hover{
-
-    background-color: #50514F;
-    cursor: pointer;
-}
-
-div.grid{
-    
-    display: grid;
-    background-color: white;
-    grid-template-columns: repeat(3, 157px);
-    grid-template-rows: repeat(3, 157px);
-}
-
-footer{
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    height: 10%;
-}
-
-.current-mark{
-
-    font-size: 48px;
-}
-
-div.box{
-
-    border: 1px solid black;
-    text-align: center;
-    font-size: 110px;
-}
-
-.marks{
-
-    margin-bottom: 1rem;
+.box-blue {
+  color: #1776fe;
 }
 
 .directions {
+  margin: 0;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: left;
+  font-family: "Vanquish W00 Bold";
+  color: #585c65;
+  font-size: x-large;
+  font-weight: 900;
+}
+
+.feedback {
+  display: flex;
+  margin-top: 1rem;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffd1dc;
+  color: #5d4157;
+  /* background-color: #F0E6EF;
+  color: #3B2C35; */
+  /* background-color: #C8D5B9;
+  color: #3B3B3B; */
+  /* background-color: #f9d558;
+  color: #f23d53; */
+  border-radius: 8px;
+  border: none;
+  font-weight: 900;
+  text-align: center;
+  padding: 18px 48px;
+  letter-spacing: -1.5px;
+  font-size: x-large;
+  margin: 1rem 0rem;
+}
+
+.symbol {
+  color: #d5e7ee;
+  font-size: large;
+  font-family: "Vanquish W00 Bold";
+}
+
+.marks {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 20px;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  background-color: #373940;
+  border: 1px solid #414048;
+  padding: 20px;
+  cursor: pointer;
+}
+.button:hover {
+  border: 2px solid #4b4d51;
+}
+/* 
+aside div.marks > button {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+aside div.marks button:nth-child(1) {
+    background-color: #FFD166;
+}
+
+aside div.marks button:nth-child(2) {
+    background-color: #26547C;
+} */
+
+footer {
+  --background-color: white;
+  --text-color: rgb(56, 56, 56);
+  --logo-background-color: rgb(56, 56, 56);
+  background-color: var(--background-color);
+  padding: 1rem 0rem;
+  color: var(--text-color);
+  width: 100%;
+  margin-top: auto;
+  background-color: #ffd1dc;
+  padding-top: 0;
+  padding-bottom: 0;
+  color: black;
+  font-weight: 600;
+  font-family: "Roboto";
+  font-family: system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.copyright {
+  font-size: large;
+}
+
+.footer-container {
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.github {
+  border: 1px solid #fff;
+  border-radius: 50%;
+  color: var(--text-color);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  height: 32px;
+  width: 32px;
+  text-decoration: none;
+}
+.github:hover {
+  background-color: #e0e0e0;
+}
+
+.top {
+  align-items: center;
+}
+
+.restart {
+  padding: 16px 24px;
+  font-size: large;
+  background-color: #1776fe;
+  color: #ddf3ff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.inactive {
+  display: none;
+}
+
+.restart:hover {
+  background-color: #2660a4;
+}
+
+footer a {
+  text-decoration: none;
+}
+
+.board-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  background-repeat: no-repeat;
+}
+
+/* Existing media queries remain unchanged */
+
+.current-mark {
+  font-size: 48px;
+}
+
+.marks {
+  margin-bottom: 1rem;
+}
+
+.player-component {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  background-color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  border: 3px solid #fdd1d5;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: fit-content;
+  padding: 1rem 2rem;
+}
+
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: -40px;
+  align-items: center;
+  border: 6px solid white;
+  box-shadow: 0 8px 4px #fcdce1;
+}
+
+.character {
+  font-size: 32px; /* Adjust based on actual size in the design */
+  color: #ffe200; /* Yellow color from the image */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Based on the shadow effect in the image */
+}
+
+.yellow-icon {
+  background-color: #ffe200; /* Yellow color from the image */
+  width: 20px; /* Adjust based on the actual size in the design */
+  height: 20px; /* Adjust based on the actual size in the design */
+  border-radius: 50%; /* To make it circular */
+  position: absolute;
+  bottom: -10px; /* Adjust to position below the button */
+  right: 10px; /* Adjust to position at the right corner of the button */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Based on the shadow effect in the image */
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.player-details {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.player-name {
+  font-size: x-large;
+  font-weight: 500;
+  margin-bottom: 12px;
+  font-weight: 900;
+}
+
+.player-character {
+  font-size: 24px;
+  font-weight: 700;
+  background-color: #f34855; /* The yellow color for the character background */
+  border-radius: 48px;
+  padding: 8px 44px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.player-component {
+  margin-top: 2rem;
+}
+
+@media (max-width: 880px) {
+  main {
+    width: 100%;
+  }
+  .board {
+    margin: 0;
+  }
+  .grid {
+    margin-top: 2rem;
+  }
+  .container {
+    flex-direction: column;
+  }
+  .controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .players {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  .title {
+    margin: 0;
+  }
+  .top {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+  .box {
+    width: 100px;
+    height: 100px;
+    font-size: 80px;
+  }
+}
+
+@media (max-width: 460px) {
+  .restart {
+    padding: 8px 24px;
+  }
+  .players {
+    flex-direction: column;
+    align-items: center;
+  }
+  .box {
+    width: 80px;
+    height: 80px;
+    font-size: 70px;
+  }
+  .controls {
+    padding: 1rem;
+  }
+  .directions {
     text-align: center;
+  }
+  .title {
+    font-size: xx-large;
+    text-align: center;
+  }
+}
+
+@media (max-width: 380px) {
+  .top {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  .box {
+    width: 60px;
+    height: 60px;
+    font-size: 52px;
+  }
+}
+
+/* @media (max-width: 1060px) {
+  div.grid {
+    display: grid;
+    background-color: white;
+    grid-template-columns: repeat(3, 125px);
+    grid-template-rows: repeat(3, 125px);
+  }
+
+  .marks {
+    display: flex;
+  }
+
+  main {
+    flex-direction: column;
+    padding-bottom: 50px;
+    height: 100%;
+  }
+
+  .marks > button:nth-child(1),
+  .marks > button:nth-child(2) {
+    padding: 0.75rem 4.5rem;
+  }
+
+  footer {
+    display: none;
+  }
 }
 
 @media (max-width: 1288px) {
+  aside div.marks > button {
+    padding: 1rem 6rem;
+  }
 
-    aside div.marks > button{
+  aside > button {
+    padding: 1.25 4rem;
+  }
 
-        padding: 1rem 6rem;
-    }
-
-    aside > button{
-
-        padding: 1.25 4rem;
-    }
-
-    aside{
-
-        height: 30%;
-        gap: 16px;
-    }
+  aside {
+    height: 30%;
+    gap: 16px;
+  }
 }
 
-@media(max-width: 1060px){
-
-    div.grid{
-        
-        display: grid;
-        background-color: white;
-        grid-template-columns: repeat(3, 125px);
-        grid-template-rows: repeat(3, 125px);
-    }
-
-    .marks{
-
-        display: flex;
-    }
-
-    main{
-        
-        flex-direction: column;
-        padding-bottom: 50px;
-        height: 100%;
-    }
-
-    .marks > button:nth-child(1), .marks > button:nth-child(2){
-
-        padding: 0.75rem 4.5rem;
-    }
-
-    footer{
-
-        display: none;
-    }
-}
-
-@media(max-width: 375px) {
-
-    div.grid{
-        display: grid;
-        background-color: white;
-        grid-template-columns: repeat(3, 115px);
-        grid-template-rows: repeat(3, 115px);
-    }
-    .directions {
-        display: none
-    }
-    aside {
-        justify-content: flex-end;
-    }
-}
+@media (max-width: 375px) {
+  div.grid {
+    display: grid;
+    background-color: white;
+    grid-template-columns: repeat(3, 115px);
+    grid-template-rows: repeat(3, 115px);
+  }
+  .directions {
+    display: none;
+  }
+  aside {
+    justify-content: flex-end;
+  }
+} */

@@ -1,362 +1,367 @@
-const gameBoard = function(){
+const gameBoard = (function () {
+  const boardList = ["", "", "", "", "", "", "", "", ""];
 
-    const boardList = ["", "", "", "", "", "", "", "", ""];
+  const points = document.querySelectorAll("div.box");
 
-    const points = document.querySelectorAll('div.box');
+  const addElementToBoardList = (mark, index) => {
+    boardList[index] = mark;
+  };
 
-    const addElementToBoardList = (mark, index) => {
+  const getBoardList = () => {
+    return boardList;
+  };
 
-        boardList[index] = mark;
+  const getNodeList = () => {
+    return points;
+  };
+
+  const getElementAtIndex = (index) => {
+    return boardList[index];
+  };
+
+  return {
+    addElementToBoardList,
+    getNodeList,
+    getBoardList,
+    getElementAtIndex,
+  };
+})();
+
+const displayController = (function () {
+  const render = () => {
+    for (let i = 0; i < gameBoard.getBoardList().length; i++) {
+      const element = document.querySelector(`.box:nth-child(${i + 1})`);
+      const character = gameBoard.getElementAtIndex(i);
+      if (character === "o") {
+        element.classList.add("box-blue");
+      }
+      element.innerText = character;
     }
+  };
 
-    const getBoardList = () => {
-
-        return boardList;
-    }
-
-    const getNodeList = () => {
-        return points;
-    }
-
-    const getElementAtIndex = index => {
-        return boardList[index];
-    }
-
-    return {addElementToBoardList, getNodeList, getBoardList, getElementAtIndex};
-}();
-
-const displayController = function(){
-
-    const render = () => {
-
-        for(let i = 0; i < gameBoard.getBoardList().length; i++){
-
-            const element = document.querySelector(`.box:nth-child(${i+1})`);
-
-            element.innerText = gameBoard.getElementAtIndex(i);
-        }
-    }
-
-    return {render};
-}();
+  return { render };
+})();
 
 const Player = (name) => {
+  let aiMark = "";
 
-    let aiMark = "";
+  let humanMark = "";
 
-    let humanMark = "";
+  const getHumanMark = () => {
+    return humanMark;
+  };
 
-    const getHumanMark = () => {
+  const getAiMark = () => {
+    return aiMark;
+  };
 
-        return humanMark;
+  const setMark = function (computer, human) {
+    aiMark = computer;
+    humanMark = human;
+  };
+
+  return { name, getAiMark, getHumanMark, setMark };
+};
+
+const game = (function () {
+  let player1 = "";
+
+  let player2 = "";
+
+  function _testForWinner(optionalBoard) {
+    let winner = "none";
+
+    let board;
+
+    if (optionalBoard) {
+      board = optionalBoard;
+    } else {
+      board = gameBoard.getBoardList();
     }
 
-    const getAiMark = () => {
+    const winLines = [
+      [board[0], board[1], board[2]],
+      [board[3], board[4], board[5]],
+      [board[6], board[7], board[8]],
+      [board[0], board[3], board[6]],
+      [board[1], board[4], board[7]],
+      [board[2], board[5], board[8]],
+      [board[0], board[4], board[8]],
+      [board[2], board[4], board[6]],
+    ];
 
-        return aiMark;
-    }
+    let isX = (currentValue) => currentValue === "x";
 
-    const setMark = function(computer, human) {
+    let isO = (currentValue) => currentValue === "o";
 
-        aiMark = computer;
-        humanMark = human;
-    }
+    let isNotEmpty = (currentValue) => currentValue !== "";
 
-    return {name, getAiMark, getHumanMark, setMark};
-}
-
-const game = function(){
-    
-    let player1 = "";
-
-    let player2 = "";
-
-    function _testForWinner(optionalBoard) {
-
-        let winner = 'none';
-
-        let board;
-
-        if (optionalBoard) {
-
-        board = optionalBoard;
+    winLines.forEach((line) => {
+      if (line.every(isX) || line.every(isO)) {
+        if (line.includes("x")) {
+          winner = player1;
+          return;
         } else {
-
-        board = gameBoard.getBoardList();
+          winner = player2;
+          return;
         }
+      }
+    });
 
-        const winLines = [
-        [board[0],board[1],board[2]], [board[3],board[4],board[5]],
-        [board[6],board[7],board[8]], [board[0],board[3],board[6]],
-        [board[1],board[4],board[7]], [board[2],board[5],board[8]],
-        [board[0],board[4],board[8]], [board[2],board[4],board[6]] 
-        ];
+    if (winner === "none" && board.every(isNotEmpty)) winner = "tie";
+    return winner;
+  }
 
-        let isX = (currentValue) => currentValue === 'x';
-
-        let isO = (currentValue) => currentValue === 'o';
-
-        let isNotEmpty = (currentValue) => currentValue !== '';
-
-        winLines.forEach(line => {
-        if (line.every(isX) || line.every(isO)) {
-
-            if (line.includes('x')) {
-
-            winner = player1;
-            return;
-            } else {
-
-            winner = player2;
-            return;
-            }
-        }
-        });
-
-        if (winner === 'none' && board.every(isNotEmpty)) winner = 'tie';
-        return winner;
-    }
-
-    // Step 5 - Create a winner determiner function:
-    function checkIfWinnerFound(currBdSt, currMark) {
-        if (
-            (currBdSt[0] === currMark && currBdSt[1] === currMark && currBdSt[2] === currMark) ||
-            (currBdSt[3] === currMark && currBdSt[4] === currMark && currBdSt[5] === currMark) ||
-            (currBdSt[6] === currMark && currBdSt[7] === currMark && currBdSt[8] === currMark) ||
-            (currBdSt[0] === currMark && currBdSt[3] === currMark && currBdSt[6] === currMark) ||
-            (currBdSt[1] === currMark && currBdSt[4] === currMark && currBdSt[7] === currMark) ||
-            (currBdSt[2] === currMark && currBdSt[5] === currMark && currBdSt[8] === currMark) ||
-            (currBdSt[0] === currMark && currBdSt[4] === currMark && currBdSt[8] === currMark) ||
-            (currBdSt[2] === currMark && currBdSt[4] === currMark && currBdSt[6] === currMark)
+  // Step 5 - Create a winner determiner function:
+  function checkIfWinnerFound(currBdSt, currMark) {
+    if (
+      (currBdSt[0] === currMark &&
+        currBdSt[1] === currMark &&
+        currBdSt[2] === currMark) ||
+      (currBdSt[3] === currMark &&
+        currBdSt[4] === currMark &&
+        currBdSt[5] === currMark) ||
+      (currBdSt[6] === currMark &&
+        currBdSt[7] === currMark &&
+        currBdSt[8] === currMark) ||
+      (currBdSt[0] === currMark &&
+        currBdSt[3] === currMark &&
+        currBdSt[6] === currMark) ||
+      (currBdSt[1] === currMark &&
+        currBdSt[4] === currMark &&
+        currBdSt[7] === currMark) ||
+      (currBdSt[2] === currMark &&
+        currBdSt[5] === currMark &&
+        currBdSt[8] === currMark) ||
+      (currBdSt[0] === currMark &&
+        currBdSt[4] === currMark &&
+        currBdSt[8] === currMark) ||
+      (currBdSt[2] === currMark &&
+        currBdSt[4] === currMark &&
+        currBdSt[6] === currMark)
     ) {
-            return true;
-        } else {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-            return false;
-        }
+  // Step 6 - Create the minimax algorithm:
+  function minimax(board, player) {
+    //find available cells of each board that passes through the function
+    let availableCells = _getAvailableCells(board);
+
+    //attributes a higher score to favorable outcomes
+    if (_testForWinner(board) === player1) {
+      return { score: -10 };
+    } else if (_testForWinner(board) === player2) {
+      return { score: 10 };
+    } else if (_testForWinner(board) === "tie") {
+      return { score: 0 };
     }
 
-    // Step 6 - Create the minimax algorithm:
-    function minimax(board, player) {
-        //find available cells of each board that passes through the function
-        let availableCells = _getAvailableCells(board);
+    //apply the score to all available moves and save them
+    let moves = [];
 
-        //attributes a higher score to favorable outcomes
-        if(_testForWinner(board) === player1) {
+    availableCells.forEach((cell) => {
+      let move = {};
 
-        return {score: -10};
-        } else if (_testForWinner(board) === player2) {
+      move.index = cell;
 
-        return {score: 10};
-        } else if (_testForWinner(board) === 'tie') {
+      board[cell] = player;
 
-        return {score: 0};
+      if (player === "o") {
+        let result = minimax(board, "x");
+        move.score = result.score;
+      } else {
+        let result = minimax(board, "o");
+        move.score = result.score;
+      }
+
+      board[cell] = "";
+
+      moves.push(move);
+    });
+
+    //find most favorable score out of all saved moves
+    let bestMove;
+
+    if (player === "o") {
+      let bestScore = Number.NEGATIVE_INFINITY;
+      moves.forEach((move, indexOfBestScore) => {
+        if (move.score > bestScore) {
+          bestScore = move.score;
+          bestMove = indexOfBestScore;
         }
-
-        //apply the score to all available moves and save them
-        let moves = [];
-
-        availableCells.forEach( cell => {
-
-        let move = {};
-
-        move.index = cell;
-
-        board[cell] = player;
-
-
-        if (player === 'o') {
-
-            let result = minimax(board, 'x');
-            move.score = result.score;
-        } else {
-
-            let result = minimax(board, 'o');
-            move.score = result.score;
+      });
+    } else {
+      let bestScore = Number.POSITIVE_INFINITY;
+      moves.forEach((move, indexOfBestScore) => {
+        if (move.score < bestScore) {
+          bestScore = move.score;
+          bestMove = indexOfBestScore;
         }
-    
-        board[cell] = '';
-    
-        moves.push(move);
-        })
-
-        //find most favorable score out of all saved moves
-        let bestMove;
-    
-        if(player === 'o') {
-
-        let bestScore = Number.NEGATIVE_INFINITY;
-        moves.forEach( (move, indexOfBestScore) => {
-
-            if (move.score > bestScore) {
-            bestScore = move.score;
-            bestMove = indexOfBestScore;
-            }
-        })
-        } else {
-
-        let bestScore = Number.POSITIVE_INFINITY;
-        moves.forEach( (move, indexOfBestScore) => {
-
-            if (move.score < bestScore) {
-            bestScore = move.score;
-            bestMove = indexOfBestScore;
-            }
-        })
-        }
-        //return the best move
-        return moves[bestMove];
+      });
     }
+    //return the best move
+    return moves[bestMove];
+  }
 
   function _getAvailableCells(optionalBoard) {
     availableCells = [];
 
     if (optionalBoard) {
-      optionalBoard.forEach( (cell, index) => {
-        if(cell === '') availableCells.push(index);
+      optionalBoard.forEach((cell, index) => {
+        if (cell === "") availableCells.push(index);
       });
     } else {
-      gameBoard.getBoardList().forEach( (cell, index) => {
-        if(cell === '') availableCells.push(index);
+      gameBoard.getBoardList().forEach((cell, index) => {
+        if (cell === "") availableCells.push(index);
       });
     }
-        return availableCells;
+    return availableCells;
   }
 
-    const randomComputerMove = () => {
+  const randomComputerMove = () => {
+    let randomPoint = parseInt(Math.random() * 8) + 1;
 
-        let randomPoint = parseInt(Math.random() * 8) + 1;
+    gameBoard.addElementToBoardList("x", randomPoint);
 
-        gameBoard.addElementToBoardList("x", randomPoint);
+    displayController.render();
+  };
 
-        displayController.render();
-
-
+  function play(player) {
+    if (player.getAiMark() == "x") {
+      randomComputerMove();
+      player1 = "Player 1"; //player1 is x
+      player2 = "Player 2"; //player2 is o
+    } else {
+      player2 = "Player 1";
+      player1 = "Player 2";
     }
+  }
 
-    function play(player){
-
-        if(player.getAiMark() == "x"){
-
-            randomComputerMove();
-            player1 = 'Player 1'; //player1 is x
-            player2 = 'Player 2'; //player2 is o
-        }
-        else{
-
-            player2 = 'Player 1'; 
-            player1 = 'Player 2'; 
-        }
-    }
-
-    return {play, minimax, checkIfWinnerFound, randomComputerMove}
-}();
-
-
+  return { play, minimax, checkIfWinnerFound, randomComputerMove };
+})();
 
 const Human = (name) => {
+  const prototype = Player(name);
 
-    const prototype = Player(name);
+  const buttonX = document.querySelector("button.button.button-x");
 
-    const buttonX = document.querySelector('aside .marks button:nth-child(1)');
+  const buttonO = document.querySelector("button.button.button-o");
 
-    const buttonO = document.querySelector('aside .marks button:nth-child(2)');
+  const restartButton = document.querySelector(".restart");
 
-    const restartButton = document.querySelector('aside > button')
+  let gameOver = false;
 
-    let gameOver = false;
+  let computerIsPlaying = false;
 
-    let computerIsPlaying = false;
+  restartButton.addEventListener("click", () => {
+    location.reload();
+  });
 
-    restartButton.addEventListener('click', () => {
+  function eventListener() {
+    addMarks();
 
-        location.reload();
-    })
+    game.play(prototype);
+  }
 
-   function eventListener () {
+  buttonX.addEventListener("click", function () {
+    const feedback = document.querySelector(".feedback");
+    const controls = document.querySelector(".controls");
+    const playerMark = document.querySelector(".character-player");
+    const computerMark = document.querySelector(".character-computer");
+    playerMark.textContent = "X";
+    computerMark.textContent = "O";
+    feedback.textContent = "You picked X!";
 
-        addMarks();
+    controls.classList.add("inactive");
+    // this.classList.add("inactive");
 
-        game.play(prototype);
-    }
+    // buttonO.classList.add("inactive");
 
-    buttonX.addEventListener('click', function() {
+    eventListener();
 
-        const currentMark = document.querySelector('.current-mark');
+    prototype.setMark("o", "x");
+  });
 
-        currentMark.textContent = "You picked X!"
+  buttonO.addEventListener("click", function () {
+    const feedback = document.querySelector(".feedback");
+    const controls = document.querySelector(".controls");
+    const playerMark = document.querySelector(".character-player");
+    const computerMark = document.querySelector(".character-computer");
+    playerMark.textContent = "O";
+    computerMark.textContent = "X";
 
-        this.classList.add('inactive');
+    controls.classList.add("inactive");
+    feedback.textContent = "You picked O!";
 
-        buttonO.classList.add('inactive');
+    eventListener();
 
-        eventListener()
+    game.randomComputerMove();
 
-        prototype.setMark("o", "x")
-    })
+    prototype.setMark("x", "o");
+  });
 
-    buttonO.addEventListener('click', function() {
+  const addMarks = () => {
+    gameBoard.getNodeList().forEach((point, index) =>
+      point.addEventListener("click", () => {
+        const results = document.querySelector(".feedback");
 
-        const currentMark = document.querySelector('.current-mark');
+        if (
+          gameBoard.getElementAtIndex(index) === "" &&
+          gameOver == false &&
+          computerIsPlaying == false
+        ) {
+          gameBoard.addElementToBoardList(prototype.getHumanMark(), index);
 
-        currentMark.textContent = "You picked O!"
+          displayController.render();
 
-        this.classList.add('inactive');
+          const bestPlayInfo = game.minimax(
+            gameBoard.getBoardList(),
+            prototype.getAiMark()
+          );
 
-        buttonX.classList.add('inactive');
+          gameBoard.addElementToBoardList(
+            prototype.getAiMark(),
+            bestPlayInfo.index
+          );
 
-        eventListener()
-        
-        game.randomComputerMove();
+          displayController.render();
+        }
 
-        prototype.setMark("x", "o")
-    })
+        if (
+          game.checkIfWinnerFound(
+            gameBoard.getBoardList(),
+            prototype.getHumanMark()
+          )
+        ) {
+          results.textContent = "YOU WIN! Restart to play again!";
+          gameOver = true;
+        } else if (
+          game.checkIfWinnerFound(
+            gameBoard.getBoardList(),
+            prototype.getAiMark()
+          )
+        ) {
+          results.textContent = "YOU LOSE! Restart to play again!";
+          gameOver = true;
+        } else if (gameBoard.getBoardList().includes("") === false) {
+          results.textContent = "TIE! Restart to play again!";
+          gameOver = true;
+        }
+      })
+    );
+  };
 
-    const addMarks = () =>{
-
-        gameBoard.getNodeList().forEach((point, index) => point.addEventListener('click', () => {
-
-                const results = document.querySelector('aside > p.results')
-
-                if(gameBoard.getElementAtIndex(index) === "" && gameOver == false && computerIsPlaying == false){
-
-                    gameBoard.addElementToBoardList(prototype.getHumanMark(), index);
-
-                    displayController.render();
-
-                    const bestPlayInfo = game.minimax(gameBoard.getBoardList(), prototype.getAiMark());
-
-                    gameBoard.addElementToBoardList(prototype.getAiMark(), bestPlayInfo.index);
-                    
-                    displayController.render();
-                }
-
-                if(game.checkIfWinnerFound(gameBoard.getBoardList(), prototype.getHumanMark())){
-
-                    results.textContent = "YOU WIN! Restart to play again!"
-                    gameOver = true;
-                }
-                else if(game.checkIfWinnerFound(gameBoard.getBoardList(), prototype.getAiMark())){
-
-                    results.textContent = "YOU LOSE! Restart to play again!"
-                    gameOver = true;
-                }
-                else if(gameBoard.getBoardList().includes("") === false){
-
-                    results.textContent = "TIE! Restart to play again!"
-                    gameOver = true;
-                }
-        }))
-    }
-
-    return Object.assign({}, prototype, {addMarks});
-}
+  return Object.assign({}, prototype, { addMarks });
+};
 
 const Computer = (name) => {
+  const prototype = Player(name);
 
-    const prototype = Player(name);
-
-    return Object.assign({}, prototype);
-}
+  return Object.assign({}, prototype);
+};
 
 const human = Human("Bob");
