@@ -16,7 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url(./assets/tic-tac-toe.png);
+  background-image: url(./assets/background.webp);
   background-repeat: no-repeat;
   background-size: cover;
 }
