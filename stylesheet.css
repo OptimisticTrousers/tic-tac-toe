@@ -352,6 +352,9 @@ footer a {
 }
 
 @media (max-width: 880px) {
+  html {
+    height: auto;
+  }
   main {
     width: 100%;
   }
@@ -393,12 +396,6 @@ footer a {
     width: 100px;
     height: 100px;
     font-size: 80px;
-  }
-}
-
-@media (max-height: 1060px) {
-  html {
-    height: auto;
   }
 }
 
