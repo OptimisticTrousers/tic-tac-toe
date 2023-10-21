@@ -152,23 +152,9 @@ aside {
   padding: 20px;
   cursor: pointer;
 }
+
 .button:hover {
   border: 2px solid #4b4d51;
-}
-/* 
-aside div.marks > button {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: none;
-    border-radius: 50%;
-    transition: background-color 0.3s;
-}
-
-aside div.marks button:nth-child(1) {
-    background-color: #FFD166;
 }
 
 aside div.marks button:nth-child(2) {
