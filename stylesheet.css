@@ -176,7 +176,7 @@ aside div.marks button:nth-child(2) {
     background-color: #26547C;
 } */
 
-footer {
+.footer {
   --background-color: white;
   --text-color: rgb(56, 56, 56);
   --logo-background-color: rgb(56, 56, 56);
@@ -246,7 +246,7 @@ footer {
   background-color: #2660a4;
 }
 
-footer a {
+.footer a {
   text-decoration: none;
 }
 
